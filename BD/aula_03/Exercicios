@@ -1,0 +1,32 @@
+-- 1
+-- A
+SELECT COUNT (territory_id) FROM territories;
+
+-- B
+SELECT COUNT (territory_id) FROM territories
+GROUP BY region_id;
+
+-- 2
+-- A
+SELECT COUNT (employee_id) FROM employees
+GROUP BY reports_to;
+
+-- B
+SELECT COUNT (employee_id) FROM employees
+GROUP BY city;
+
+-- 3
+-- A
+SELECT SUM (quantity) FROM order_details
+GROUP BY order_id;
+
+-- B
+SELECT order_id, SUM(unit_price * quantity - discount) as valor_total
+FROM order_details
+GROUP BY order_id;
+	
+-- C
+SELECT order_id, quantity FROM order_details
+WHERE SUM(quantity)
+
+-- D
