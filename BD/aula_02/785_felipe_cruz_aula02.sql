@@ -80,3 +80,62 @@ SELECT product_id, product_name, units_in_stock FROM products
 WHERE units_in_stock <> 0
 ORDER BY units_in_stock
 LIMIT 10;
+
+--exercício 3C
+SELECT product_id, product_name, unit_price, units_in_stock FROM products
+WHERE units_in_stock > 0
+ORDER BY unit_price DESC
+LIMIT 5;
+
+--exercício 3C
+SELECT product_id, product_name, unit_price, units_in_stock FROM products
+WHERE units_in_stock > 100 OR unit_price < 15;
+
+--exercício 4A
+SELECT   
+CASE
+WHEN LENGTH(LEFT(ship_name, POSITION(' ' IN ship_name))) != 0 THEN LEFT(ship_name, POSITION(' ' IN ship_name))
+WHEN LENGTH(LEFT(ship_name, POSITION(' ' IN ship_name))) = 0 THEN ship_name
+END as primeiro_nome
+FROM orders;
+
+--exercício 4B
+SELECT 
+(date_part('month', AGE(required_date, order_date))*30) + date_part('DAY', AGE(required_date, order_date))
+AS tempo_de_entrega
+FROM orders;
+
+--exercício 4C
+SELECT 
+(date_part('month', AGE(required_date, order_date))*30) + date_part('DAY', AGE(required_date, order_date))
+AS tempo_de_entrega,
+freight
+FROM orders
+WHERE freight IS NOT NULL AND required_date IS NOT NULL
+ORDER BY freight DESC, tempo_de_entrega DESC
+LIMIT 5;
+
+--exercício 4D
+SELECT 
+(date_part('month', AGE(required_date, order_date))*30) + date_part('DAY', AGE(required_date, order_date))
+AS tempo_de_entrega,
+freight
+FROM orders
+WHERE freight IS NOT NULL AND required_date IS NOT NULL
+ORDER BY tempo_de_entrega DESC, freight DESC
+LIMIT 5;
+
+--exercício 4E
+SELECT freight FROM orders
+WHERE ship_country = 'Brazil'
+ORDER BY freight
+LIMIT 3;
+
+--exercício 4F
+SELECT LEFT(ship_country, 3) as pais, 
+(date_part('month', AGE(required_date, order_date))*30) + date_part('DAY', AGE(required_date, order_date))
+AS tempo_de_entrega,
+freight AS frete
+FROM orders
+ORDER BY pais, tempo_de_entrega, freight;
+
