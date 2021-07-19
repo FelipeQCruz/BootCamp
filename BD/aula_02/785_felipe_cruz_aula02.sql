@@ -37,12 +37,6 @@ AGE(birth_date) AS MAIS_VELHO from employees
 ORDER BY AGE(birth_date) DESC
 LIMIT 1;
 
---exercício 2I, considerando a pessoa mais jovem da empresa
-SELECT CONCAT(first_name, ' ', last_name) AS nome,
-AGE(birth_date) AS mais_jovem from employees
-ORDER BY AGE(birth_date)
-LIMIT 1;
-
 --exercício 2I, considerando a pessoa mais jovem ao ser contratada
 SELECT CONCAT(first_name, ' ', last_name) AS nome,
 AGE(birth_date) - AGE(hire_date) AS idade_contratado from employees

@@ -73,8 +73,8 @@ ORDER BY COUNT(AGE(required_date, order_date)) DESC;
 SELECT customer_id, SUM(freight)AS frete FROM orders
 GROUP BY customer_id;
 
--- exercício 4H ???? como assim custo total de cada frete?
-SELECT ship_via, AVG(freight) AS frete FROM orders
+-- exercício 4H
+SELECT ship_via, SUM(freight) AS frete FROM orders
 GROUP BY ship_via;
 
 -- exercício 4I
@@ -106,9 +106,9 @@ ORDER BY supplier_id, category_id;
 SELECT COUNT(discontinued) AS qtd_descontinuados FROM products;
 
 -- exercício 6E
-SELECT supplier_id, COUNT(units_in_stock) AS qtd_estoque FROM products
+SELECT supplier_id, SUM(units_in_stock) AS qtd_estoque FROM products
 GROUP BY supplier_id
-HAVING COUNT(units_in_stock) < 20;
+HAVING SUM(units_in_stock) < 20;
 
 -- exercício 6F
 SELECT category_id, AVG(unit_price) AS preco_medio FROM products
