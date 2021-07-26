@@ -1,0 +1,7 @@
+-- exercício 1
+SELECT emp1.first_name AS colaborador, emp2.first_name AS gestor 
+FROM (employees AS emp1 CROSS JOIN employees AS emp2)
+WHERE emp1.reports_to = emp2.employee_id;
+
+--exercício 2A
+SELECT * FROM tb_cidades

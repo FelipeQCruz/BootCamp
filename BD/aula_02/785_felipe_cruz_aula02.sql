@@ -32,16 +32,19 @@ AGE(birth_date) - AGE(hire_date) AS idade_contratado from employees
 ORDER BY AGE(birth_date) - AGE(hire_date);
 
 --exercício 2H
-SELECT CONCAT(first_name, ' ', last_name) AS nome,
-AGE(birth_date) AS MAIS_VELHO from employees
-ORDER BY AGE(birth_date) DESC
-LIMIT 1;
+SELECT CONCAT(first_name, ' ', last_name) AS nome, AGE(birth_date) AS mais_velho from employees
+WHERE birth_date = (
+	SELECT MIN(birth_date) from employees
+)
+GROUP BY nome, birth_date;
 
 --exercício 2I, considerando a pessoa mais jovem ao ser contratada
 SELECT CONCAT(first_name, ' ', last_name) AS nome,
 AGE(birth_date) - AGE(hire_date) AS idade_contratado from employees
-ORDER BY AGE(birth_date) - AGE(hire_date)
-LIMIT 1;
+WHERE AGE(birth_date) - AGE(hire_date) = (
+	SELECT MIN(AGE(birth_date) - AGE(hire_date)) from employees
+)
+GROUP BY nome, birth_date, hire_date;
 
 --exercício 2J
 SELECT CONCAT(first_name, ' ', last_name) AS nome, title, 
@@ -132,4 +135,3 @@ AS tempo_de_entrega,
 freight AS frete
 FROM orders
 ORDER BY pais, tempo_de_entrega, freight;
-
