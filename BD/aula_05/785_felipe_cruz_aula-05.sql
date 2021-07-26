@@ -54,8 +54,11 @@ SELECT tb4.customer_type_id, tb4.customer_desc, sp.supplier_id
 			FROM order_details od RIGHT JOIN
 			(SELECT tb1.customer_type_id, tb1.customer_desc, orders.order_id
 				FROM orders RIGHT JOIN
-				(SELECT cd.customer_type_id, customers.customer_id, cd.customer_desc
-					FROM customer_demographics cd LEFT JOIN customers ON cd.customer_type_id = customers.customer_id
+				(SELECT tb0.customer_type_id, customers.customer_id, tb0.customer_desc
+					FROM customers RIGHT JOIN
+				 	(SELECT cd.customer_type_id, ccd.customer_id, cd.customer_desc 
+					 	FROM customer_demographics cd LEFT JOIN customer_customer_demo ccd ON cd.customer_type_id = ccd.customer_type_id					 
+					)tb0 ON tb0.customer_type_id = customers.customer_id
 				) tb1 ON tb1.customer_id = orders.customer_id
 			) tb2 ON od.order_id = tb2.order_id
 		) tb3 ON tb3.product_id = products.product_id

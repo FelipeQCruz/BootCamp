@@ -17,7 +17,7 @@ SUM(od.unit_price*od.quantity - od.discount + orders.freight) OVER () AS valor_t
 from orders LEFT JOIN order_details od ON orders.order_id = od.order_id
 group by orders.order_id, od.unit_price, od.quantity, od.discount, orders.freight
 );
-Select order_id, valor_do_pedido, valor_total_pedidos, 
+Select order_id, valor_do_pedido, valor_total_pedidos, CONCAT(valor_do_pedido/valor_total_pedidos*100, '%') as porcentual, 
 RANK() OVER (order by valor_do_pedido DESC)
 from compara_total;
 
